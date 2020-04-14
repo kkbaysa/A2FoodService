@@ -29,7 +29,7 @@ class login(unittest.TestCase):
         password = "test88test"
         driver = self.driver
         driver.maximize_window()
-        driver.get("http://kbaysa.pythonanywhere.com/")
+        driver.get("http://127.0.0.1:8000/")
         driver.find_element_by_xpath("/html/body/nav/div/div[2]/ul[2]/li/a").click()
         elem = driver.find_element_by_id("id_username")
         elem.send_keys(userName)
@@ -40,7 +40,7 @@ class login(unittest.TestCase):
         with open(FILENAME, "r") as file:
             nameList = csv.reader(file)
             # click view details on customer
-            driver.find_element_by_xpath("/html/body/div/div/div/div[2]/div/div/div/div/div[1]/div/div/p[2]/a").click()
+            driver.find_element_by_partial_link_text("View").click()
             for name in nameList:
                 # add a customer
                 driver.find_element_by_xpath("/html/body/div/div/div/di/div/a/span").click()
@@ -68,7 +68,7 @@ class login(unittest.TestCase):
                 elem.send_keys(name[10])
                 time.sleep(5)
                 elem.send_keys(Keys.RETURN)
-                driver.get("http://kbaysa.pythonanywhere.com/customer_list")
+                driver.get("http://127.0.0.1:8000/customer_list")
         time.sleep(5)
 
 

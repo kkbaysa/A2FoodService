@@ -1,6 +1,12 @@
 import decimal
 from datetime import datetime
 
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import status
+from .serializers import CustomerSerializer
+
+
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404
@@ -183,3 +189,12 @@ def summary(request, pk):
                                                 'sum_product_charge': sum_product_charge,
                                                 'total': total
                                                 })
+
+
+# Lists all customers
+class CustomerList(APIView):
+
+    def get(self, request):
+        customers_json = Customer.objects.all()
+        serializer = CustomerSerializer(customers_json, many=True)
+        return Response(serializer.data)
